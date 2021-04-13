@@ -16,7 +16,7 @@ app.get('/', (req,res) => {
 
 });
 
-app.use('/login', (req,res) => {
+app.get('/login', async (req,res) => {
 
     try{
         
