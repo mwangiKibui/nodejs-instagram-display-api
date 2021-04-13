@@ -12,39 +12,22 @@ app.use(express.urlencoded({ extended:false }));
 //the simple routes
 app.get('/', (req,res) => {
 
+    res.setHeader('title','Insta display API');
+
     return res.send('Hello there. The server is up.')
 
 });
 
-app.get('/login', async (req,res) => {
-
-    let response;
-    try{
-        
-        response = await axios.default.get(`https://api.instagram.com/oauth/authorize
-        ?client_id="936479663836449"
-        &redirect_uri="https://insta-display-api.herokuapp.com/auth/"
-        &scope=user_profile,user_media
-        &response_type=code`)
-
-    }catch(err){
-
-        return res.send(err.Error);
-    };
-
-    res.setHeader('content-type','text/html');
-
-    return res.sendFile(response.data)
-
-})
 
 app.get('/auth', async (req,res) => {
 
-    // Window will be populated from here
+    let {code} = req.query;
 
-    console.log("request", ...req)
+    res.setHeader('title','Auth page')
 
-    return res.send("Authentication area")
+    return res.send(
+        `<p>Our code is ${code}</p>`
+    )
     
 })
 
