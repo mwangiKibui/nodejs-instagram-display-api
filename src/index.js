@@ -30,28 +30,11 @@ app.get('/auth', async (req,res) => {
 
     let {code} = req.query;
 
-    // get an access token.
-    let response;
+    res.setHeader('title','Authentication code');
 
-    try {
-
-        response = await axios.default.post(`https://api.instagram.com/oauth/access_token`,{
-            client_id:"936479663836449",
-            client_secret:"3fc090507c00ee23c854bc696e2898b9",
-            redirect_uri:"https://insta-display-api.herokuapp.com/auth/",
-            code
-        });
-
-    }catch(error){
-        
-        console.error(error.Error);
-
-        res.send("error occurred");
-    };
-
-    res.setHeader('title','access-token');
-
-    return res.send.json(response.data);
+    return res.send(`
+        <p>The code is ${code}</p>
+    `)
 });
 
 // starting the server
