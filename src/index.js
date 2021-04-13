@@ -18,9 +18,10 @@ app.get('/', (req,res) => {
 
 app.get('/login', async (req,res) => {
 
+    let response;
     try{
         
-        await axios.default.get(`https://api.instagram.com/oauth/authorize
+        response = await axios.default.get(`https://api.instagram.com/oauth/authorize
         ?client_id="936479663836449"
         &redirect_uri="https://insta-display-api.herokuapp.com/auth/"
         &scope=user_profile,user_media
@@ -31,7 +32,9 @@ app.get('/login', async (req,res) => {
         return res.send(err.Error);
     };
 
-    return res.send("The login page")
+    res.setHeader('content-type','text/html');
+
+    return res.sendFile(response.data)
 
 })
 
